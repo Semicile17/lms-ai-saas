@@ -25,11 +25,11 @@ export default async function MyCoursesPage() {
     completedLessons: number;
   };
 
-  const startedCourses = courses.reduce<CourseWithProgress[]>((acc, course) => {
+  const startedCourses = courses.reduce((acc: CourseWithProgress[], course: any) => {
     const { total, completed } = (course.modules ?? []).reduce(
-      (stats, m) =>
+      (stats: { total: number; completed: number }, m: any) =>
         (m.lessons ?? []).reduce(
-          (s, l) => ({
+          (s: { total: number; completed: number }, l: any) => ({
             total: s.total + 1,
             completed: s.completed + (l.completedBy?.includes(user.id) ? 1 : 0),
           }),
@@ -68,13 +68,13 @@ export default async function MyCoursesPage() {
               </span>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-              {startedCourses.map((course) => (
+              {startedCourses.map((course: { slug: any; title: string | null; description: string | null; tier: string | null; thumbnail: { asset: { _id: string; url: string | null; } | null; } | null; moduleCount: number | null; totalLessons: number | null; completedLessons: number | null | undefined; completedBy: string | string[]; }) => (
                 <CourseCard
                   key={course.slug!.current!}
                   slug={{ current: course.slug!.current! }}
                   title={course.title}
                   description={course.description}
-                  tier={course.tier}
+                  tier={course.tier as "free" | "pro" | "ultra" | null}
                   thumbnail={course.thumbnail}
                   moduleCount={course.moduleCount}
                   lessonCount={course.totalLessons}
