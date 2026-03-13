@@ -48,7 +48,7 @@ export function CourseHero({
         {/* ── Thumbnail ── */}
         <div
           className={cn(
-            "relative w-full lg:w-72 h-44 lg:h-48 rounded-sm bg-gradient-to-br overflow-hidden shrink-0 border border-zinc-200",
+            "relative w-full lg:w-72 h-44 lg:h-48 rounded-sm bg-linear-to-br overflow-hidden shrink-0 border border-zinc-200",
             styles.gradient
           )}
         >

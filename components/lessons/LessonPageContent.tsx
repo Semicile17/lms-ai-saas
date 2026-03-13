@@ -138,7 +138,7 @@ export function LessonPageContent({ lesson, userId }: LessonPageContentProps) {
                       className="rounded-sm border-zinc-200 text-zinc-600 hover:text-zinc-900 hover:bg-zinc-50 shadow-none text-xs gap-1.5"
                     >
                       <ChevronLeft className="w-3.5 h-3.5" strokeWidth={2} />
-                      <span className="hidden sm:inline max-w-[12rem] truncate">
+                      <span className="hidden sm:inline max-w-48 truncate">
                         {prevLesson.title}
                       </span>
                       <span className="sm:hidden">Previous</span>
@@ -154,7 +154,7 @@ export function LessonPageContent({ lesson, userId }: LessonPageContentProps) {
                       size="sm"
                       className="rounded-sm bg-zinc-900 text-white hover:bg-zinc-800 shadow-none text-xs gap-1.5"
                     >
-                      <span className="hidden sm:inline max-w-[12rem] truncate">
+                      <span className="hidden sm:inline max-w-48 truncate">
                         {nextLesson.title}
                       </span>
                       <span className="sm:hidden">Next</span>

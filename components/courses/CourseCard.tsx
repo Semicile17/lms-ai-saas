@@ -64,7 +64,7 @@ export function CourseCard({
       <div className="rounded-sm border border-zinc-200 bg-white overflow-hidden hover:border-zinc-400 hover:shadow-sm transition-all duration-200">
 
         {/* ── Thumbnail ── */}
-        <div className={`h-40 bg-gradient-to-br ${styles.gradient} relative overflow-hidden`}>
+        <div className={`h-40 bg-linear-to-br ${styles.gradient} relative overflow-hidden`}>
           {thumbnail?.asset?.url ? (
             <Image
               src={thumbnail.asset.url}
