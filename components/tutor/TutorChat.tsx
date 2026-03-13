@@ -9,7 +9,6 @@ export function TutorChat() {
   const [inputValue, setInputValue] = useState("");
 
   const { messages, sendMessage, status } = useChat({
-    api: "/api/chat", 
     messages: [
       {
         id: "welcome",
