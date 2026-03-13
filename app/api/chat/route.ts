@@ -34,7 +34,7 @@ export async function POST(request: Request) {
   }
 
   return createAgentUIStreamResponse({
-    agent: tutorAgent,
-    messages,
+    agent: tutorAgent as any,
+    uiMessages: messages,
   });
 }
