@@ -1,3 +1,4 @@
+import React from "react";
 import { currentUser } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 import { BookOpen } from "lucide-react";
