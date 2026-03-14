@@ -68,7 +68,7 @@ export default async function MyCoursesPage() {
               </span>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-              {startedCourses.map((course: { slug: any; title: string | null; description: string | null; tier: string | null; thumbnail: { asset: { _id: string; url: string | null; } | null; } | null; moduleCount: number | null; totalLessons: number | null; completedLessons: number | null | undefined; completedBy: string | string[]; }) => (
+              {startedCourses.map((course) => (
                 <CourseCard
                   key={course.slug!.current!}
                   slug={{ current: course.slug!.current! }}
@@ -79,7 +79,7 @@ export default async function MyCoursesPage() {
                   moduleCount={course.moduleCount}
                   lessonCount={course.totalLessons}
                   completedLessonCount={course.completedLessons}
-                  isCompleted={course.completedBy?.includes(user.id) ?? false}
+                  isCompleted={(Array.isArray(course.completedBy) ? course.completedBy : []).includes(user.id)}
                   showProgress
                 />
               ))}
