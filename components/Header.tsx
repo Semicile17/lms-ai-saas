@@ -4,8 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import {
-  SignedIn,
-  SignedOut,
+  Show,
   SignInButton,
   UserButton,
   useAuth,
@@ -19,7 +18,6 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import {
-  Code2,
   LayoutDashboard,
   BookOpen,
   Sparkles,
@@ -52,20 +50,16 @@ export function Header() {
       <div className="max-w-6xl mx-auto px-6 lg:px-10 h-16 flex items-center justify-between gap-6">
 
         {/* ── Logo ── */}
-        <SignedIn>
-          <Link href="/dashboard" className="shrink-0">
-            <Logo />
-          </Link>
-        </SignedIn>
-        <SignedOut>
-          <Link href="/" className="shrink-0">
-            <Logo />
-          </Link>
-        </SignedOut>
+        <Show when="signed-in">
+          <Link href="/dashboard" className="shrink-0"><Logo /></Link>
+        </Show>
+        <Show when="signed-out">
+          <Link href="/" className="shrink-0"><Logo /></Link>
+        </Show>
 
         {/* ── Center Nav ── */}
         <nav className="hidden md:flex items-center gap-1 flex-1 justify-center">
-          <SignedOut>
+          <Show when="signed-out">
             {loggedOutLinks.map((link) => (
               <Link
                 key={link.href}
@@ -75,15 +69,14 @@ export function Header() {
                 {link.label}
               </Link>
             ))}
-          </SignedOut>
+          </Show>
 
-          <SignedIn>
+          <Show when="signed-in">
             {loggedInLinks.map((link) => {
               const Icon = link.icon;
               const isActive =
                 pathname === link.href ||
                 (link.href !== "/dashboard" && pathname.startsWith(link.href));
-
               return (
                 <Link
                   key={link.href}
@@ -106,29 +99,22 @@ export function Header() {
                 </Link>
               );
             })}
-          </SignedIn>
+          </Show>
         </nav>
 
         {/* ── Right ── */}
         <div className="flex items-center gap-2 shrink-0">
-          <SignedOut>
-            {/* Mobile menu */}
+          <Show when="signed-out">
             <DropdownMenu>
               <DropdownMenuTrigger asChild className="md:hidden">
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  className="text-zinc-500 hover:text-zinc-900 hover:bg-zinc-50 rounded-sm"
-                >
+                <Button variant="ghost" size="icon" className="text-zinc-500 hover:text-zinc-900 hover:bg-zinc-50 rounded-sm">
                   <Menu className="w-4 h-4" />
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end" className="rounded-sm border-zinc-200 shadow-sm">
                 {loggedOutLinks.map((link) => (
                   <DropdownMenuItem key={link.href} asChild>
-                    <Link href={link.href} className="text-zinc-600 text-sm cursor-pointer">
-                      {link.label}
-                    </Link>
+                    <Link href={link.href} className="text-zinc-600 text-sm cursor-pointer">{link.label}</Link>
                   </DropdownMenuItem>
                 ))}
               </DropdownMenuContent>
@@ -137,35 +123,23 @@ export function Header() {
             <Separator orientation="vertical" className="h-5 hidden md:block" />
 
             <SignInButton mode="modal">
-              <Button
-                variant="ghost"
-                size="sm"
-                className="text-zinc-600 hover:text-zinc-900 hover:bg-zinc-50 rounded-sm text-sm font-normal"
-              >
+              <Button variant="ghost" size="sm" className="text-zinc-600 hover:text-zinc-900 hover:bg-zinc-50 rounded-sm text-sm font-normal">
                 Sign in
               </Button>
             </SignInButton>
 
             <Link href="/pricing" className="hidden sm:block">
-              <Button
-                size="sm"
-                className="bg-zinc-900 text-white hover:bg-zinc-800 rounded-sm text-sm font-medium shadow-none gap-1.5"
-              >
+              <Button size="sm" className="bg-zinc-900 text-white hover:bg-zinc-800 rounded-sm text-sm font-medium shadow-none gap-1.5">
                 Start Learning
                 <ArrowRight className="w-3.5 h-3.5" />
               </Button>
             </Link>
-          </SignedOut>
+          </Show>
 
-          <SignedIn>
-            {/* Mobile menu */}
+          <Show when="signed-in">
             <DropdownMenu>
               <DropdownMenuTrigger asChild className="md:hidden">
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  className="text-zinc-500 hover:text-zinc-900 hover:bg-zinc-50 rounded-sm"
-                >
+                <Button variant="ghost" size="icon" className="text-zinc-500 hover:text-zinc-900 hover:bg-zinc-50 rounded-sm">
                   <Menu className="w-4 h-4" />
                 </Button>
               </DropdownMenuTrigger>
@@ -198,17 +172,14 @@ export function Header() {
             <UserButton
               appearance={{
                 elements: {
-                  avatarBox:
-                    "w-8 h-8 ring-1 ring-zinc-200 hover:ring-zinc-400 transition-all rounded-full",
-                  userButtonPopoverCard:
-                    "rounded-sm shadow-sm border border-zinc-200",
-                  userButtonPopoverActionButton:
-                    "text-sm text-zinc-600 hover:text-zinc-900 hover:bg-zinc-50 rounded-sm",
+                  avatarBox: "w-8 h-8 ring-1 ring-zinc-200 hover:ring-zinc-400 transition-all rounded-full",
+                  userButtonPopoverCard: "rounded-sm shadow-sm border border-zinc-200",
+                  userButtonPopoverActionButton: "text-sm text-zinc-600 hover:text-zinc-900 hover:bg-zinc-50 rounded-sm",
                   userButtonPopoverFooter: "hidden",
                 },
               }}
             />
-          </SignedIn>
+          </Show>
         </div>
 
       </div>
@@ -220,21 +191,11 @@ function Logo() {
   return (
     <div className="flex items-center gap-2.5 group">
       <div className="w-8 h-8 rounded-sm flex items-center justify-center shrink-0 group-hover:bg-zinc-700 transition-colors duration-150">
-       <Image
-          src="/logo.svg"
-          alt="RE:EDU Logo"
-          width={32}
-          height={32}
-          className="object-contain"
-        />
+        <Image src="/logo.svg" alt="RE:EDU Logo" width={32} height={32} className="object-contain" />
       </div>
       <div className="flex flex-col leading-none">
-        <span className="text-sm font-bold tracking-tight text-zinc-900">
-          RE:EDU
-        </span>
-        <span className="text-[9px] uppercase tracking-[0.18em] text-zinc-400 font-normal">
-          Academy
-        </span>
+        <span className="text-sm font-bold tracking-tight text-zinc-900">RE:EDU</span>
+        <span className="text-[9px] uppercase tracking-[0.18em] text-zinc-400 font-normal">Academy</span>
       </div>
     </div>
   );

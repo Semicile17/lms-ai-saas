@@ -13,7 +13,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "RE:EDU&apos;s Academy - Master modern coding with expert-led courses and hands-on lessons",
+  title: "RE:EDU - Master modern coding with expert-led courses and hands-on lessons",
   description:
     "Master coding the modern way with expertly crafted courses, modules, and hands-on lessons.",
 };
